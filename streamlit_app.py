@@ -1,6 +1,4 @@
-import streamlit as st
+# Este archivo es un punto de entrada para la aplicaciu00f3n
+# Simplemente importa y ejecuta el archivo app.py principal
 
-st.title("🎈 My new app")
-st.write(
-    "Let's start building! For help and inspiration, head over to [docs.streamlit.io](https://docs.streamlit.io/)."
-)
+import app
