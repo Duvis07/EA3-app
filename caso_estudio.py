@@ -8,25 +8,22 @@ CASOSUSO = "Casos de uso ideales:"
 VER_DETALLES = "Ver detalles"
 
 def mostrar_caso_estudio():
-    st.markdown("<h1 style='font-size: 36px; color: #1a365d;'>Caso de estudio: Análisis de métricas de proyectos de software</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size: 36px; color: #1a365d;'>Caso de estudio: Análisis de ventas minoristas con datos reales</h1>", unsafe_allow_html=True)
     
     # Introducción
     st.markdown("<h2 style='font-size: 32px; color: #1a365d;'>Introducción</h2>", unsafe_allow_html=True)
     st.write("""
-    El análisis de métricas de proyectos de software es fundamental para evaluar el rendimiento de los equipos de desarrollo, 
-    identificar áreas de mejora y optimizar los procesos de desarrollo. En este caso de estudio, analizaremos un conjunto 
-    de datos que contiene métricas de diferentes equipos a lo largo de varios sprints, utilizando diversas librerías 
-    de visualización de Python para extraer insights valiosos.
+    El análisis de datos de ventas minoristas es crucial para entender el comportamiento de los clientes, identificar productos exitosos y descubrir oportunidades de mejora en la gestión comercial. En este caso de estudio, trabajaremos con un dataset real de TechNova Retail que contiene información sobre ventas, productos, categorías, fechas y clientes. Utilizaremos diversas librerías de visualización de Python para extraer insights valiosos y apoyar la toma de decisiones estratégicas.
     """)
     
     # Objetivos
     st.markdown("<h2 style='font-size: 32px; color: #1a365d;'>Objetivos</h2>", unsafe_allow_html=True)
     st.markdown("""
-    - Identificar patrones y tendencias en las métricas de desarrollo a lo largo de los sprints.
-    - Comparar el rendimiento de diferentes equipos en términos de productividad, calidad y eficiencia.
-    - Analizar la relación entre diferentes métricas (horas de desarrollo, errores detectados, retrasos, etc.).
-    - Identificar factores que contribuyen a los retrasos en las entregas y los costos excedentes.
-    - Proporcionar recomendaciones basadas en datos para mejorar los procesos de desarrollo.
+    - Identificar patrones y tendencias en las ventas a lo largo del tiempo.
+    - Analizar la distribución de ventas por categorías de producto y por cliente.
+    - Detectar productos o categorías con mayor y menor desempeño.
+    - Explorar la relación entre variables como cantidad, precio y satisfacción del cliente.
+    - Proponer recomendaciones basadas en datos para mejorar la estrategia comercial de TechNova Retail.
     """)
     
     # Investigación de herramientas
@@ -34,7 +31,7 @@ def mostrar_caso_estudio():
     st.write("""
     A continuación, se presenta una comparativa de cinco librerías populares de visualización de datos en Python: 
     Matplotlib, Seaborn, Plotly, Bokeh y GeoPandas. Se analizan sus características principales, 
-    ventajas, desventajas y casos de uso ideales.
+    ventajas, desventajas y casos de uso ideales en el contexto de análisis de ventas minoristas.
     """)
     
     # Matplotlib
@@ -215,50 +212,48 @@ def mostrar_caso_estudio():
     # Justificación de la selección
     st.markdown("<h2 style='font-size: 32px; color: #1a365d;'>Justificación de la selección de librerías</h2>", unsafe_allow_html=True)
     st.write("""
-    Para este caso de estudio sobre métricas de proyectos de software, hemos seleccionado tres librerías principales: 
-    Matplotlib, Seaborn y Plotly. Cada una de estas librerías se utilizará para diferentes aspectos del análisis, 
-    aprovechando sus fortalezas específicas.
+    Para este caso de estudio sobre análisis de ventas minoristas, hemos seleccionado tres librerías principales: Matplotlib, Seaborn y Plotly. Cada una de estas librerías se utilizará para diferentes aspectos del análisis, aprovechando sus fortalezas específicas en el contexto comercial.
     """)
     
-    st.subheader("Objetivo 1: Análisis de tendencias a lo largo del tiempo")
+    st.subheader("Objetivo 1: Análisis de tendencias de ventas a lo largo del tiempo")
     st.write("""
-    Para analizar cómo evolucionan las métricas a lo largo de los sprints, utilizaremos **Matplotlib** debido a su 
-    precisión y control detallado sobre los gráficos de líneas. Esto nos permitirá visualizar claramente las tendencias 
-    temporales en métricas como horas de desarrollo, errores detectados y retrasos en las entregas.
+    Para analizar cómo evolucionan las ventas a lo largo de los meses o años, utilizamos Matplotlib debido a su precisión y control detallado sobre los gráficos de líneas. Esto nos permite visualizar claramente las tendencias temporales en métricas como ventas totales, ingresos y evolución de productos destacados.
     """)
     
-    st.subheader("Objetivo 2: Comparación entre equipos")
+    st.subheader("Objetivo 2: Comparación entre categorías de producto")
     st.write("""
-    Para comparar el rendimiento entre diferentes equipos, **Seaborn** es la elección ideal debido a sus capacidades 
-    estadísticas y su facilidad para crear gráficos comparativos como boxplots y barplots. Su integración con Pandas 
-    facilitará el análisis agrupado por equipos.
+    Para comparar el desempeño entre diferentes categorías de productos, Seaborn es la elección ideal gracias a sus capacidades estadísticas y facilidad para crear gráficos comparativos como barplots y boxplots. Su integración con Pandas facilita el análisis agrupado por categorías, ciudades o métodos de pago.
     """)
     
-    st.subheader("Objetivo 3: Análisis de correlaciones")
+    st.subheader("Objetivo 3: Análisis de correlaciones comerciales")
     st.write("""
-    Para explorar las relaciones entre diferentes métricas (como la correlación entre horas de prueba y errores detectados), 
-    utilizaremos **Plotly** debido a sus capacidades interactivas que permiten explorar en detalle los datos y descubrir 
-    patrones complejos a través de gráficos de dispersión y mapas de calor interactivos.
+    Para explorar relaciones entre variables como precio, cantidad vendida y satisfacción del cliente, utilizamos Plotly por sus capacidades interactivas. Esto permite explorar en detalle los datos y descubrir patrones complejos mediante gráficos de dispersión y mapas de calor interactivos.
     """)
     
-    st.subheader("Objetivo 4: Visualizaciones complejas y dashboards")
+    st.subheader("Objetivo 4: Dashboards y visualizaciones interactivas de ventas")
     st.write("""
-    Para crear visualizaciones más complejas que combinen múltiples métricas y permitan una exploración interactiva 
-    profunda, utilizaremos **Plotly**. Su capacidad para manejar grandes conjuntos de datos y crear interfaces interactivas 
-    complejas lo hace ideal para dashboards detallados de rendimiento de proyectos.
+    Para crear dashboards que combinen múltiples métricas y permitan una exploración interactiva profunda, Plotly es ideal. Su capacidad para manejar grandes volúmenes de datos y crear interfaces interactivas lo hace perfecto para dashboards comerciales y reportes ejecutivos.
     """)
     
+    st.subheader("Conclusión")
+    st.write("""
+    La combinación de estas librerías de visualización nos permite abordar de manera integral el análisis de ventas minoristas. Cada librería aporta sus fortalezas específicas:
+
+    - Matplotlib proporciona control preciso para visualizar tendencias de ventas en el tiempo.
+    - Seaborn facilita la comparación estadística entre categorías, productos y clientes con visualizaciones elegantes.
+    - Plotly ofrece interactividad para explorar correlaciones y patrones complejos, además de permitir crear dashboards interactivos para un análisis comercial integral.
+
+    Esta aproximación multi-librería nos permite aprovechar lo mejor de cada herramienta para obtener insights más completos y valiosos sobre el comportamiento de ventas, preferencias de los clientes y oportunidades de mejora para TechNova Retail.
+    """)
+
     # Conclusión
     st.markdown("<h2 style='font-size: 32px; color: #1a365d;'>Conclusión</h2>", unsafe_allow_html=True)
     st.write("""
-    La combinación de estas librerías de visualización nos permite abordar de manera integral el análisis de métricas 
-    de proyectos de software. Cada librería aporta sus fortalezas específicas:
+    La combinación de estas librerías de visualización nos permite abordar de manera integral el análisis de ventas minoristas. Cada librería aporta sus fortalezas específicas:
     
-    - **Matplotlib** proporciona control preciso para visualizaciones de tendencias temporales.
-    - **Seaborn** facilita la comparación estadística entre equipos con visualizaciones elegantes.
-    - **Plotly** ofrece interactividad para explorar correlaciones y patrones complejos, además de permitir crear dashboards 
-      interactivos para un análisis integral del rendimiento.
+    - **Matplotlib** proporciona control preciso para visualizar tendencias de ventas en el tiempo.
+    - **Seaborn** facilita la comparación estadística entre categorías, productos y clientes con visualizaciones elegantes.
+    - **Plotly** ofrece interactividad para explorar correlaciones y patrones complejos, además de permitir crear dashboards interactivos para un análisis comercial integral.
     
-    Esta aproximación multi-librería nos permite aprovechar lo mejor de cada herramienta para obtener insights más 
-    completos y valiosos sobre el rendimiento de los equipos de desarrollo y la eficiencia de los procesos.
+    Esta aproximación multi-librería nos permite aprovechar lo mejor de cada herramienta para obtener insights más completos y valiosos sobre el comportamiento de ventas, preferencias de los clientes y oportunidades de mejora para TechNova Retail.
     """)
