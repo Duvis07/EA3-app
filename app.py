@@ -154,11 +154,11 @@ with tabs[1]:
                 monto_lider = ventas_categoria.values[-1]
                 segunda = ventas_categoria.index[-2]
                 monto_segunda = ventas_categoria.values[-2]
-                diff = monto_lider - monto_segunda
+                diff = int(round(monto_lider - monto_segunda, 0))
                 st.markdown(f"""
                 <div class='insight-card'>
                 <h3>Insight: Ventas Totales por Categoría</h3>
-                <p>La categoría líder en ventas es <b>{lider.capitalize()}</b> con <b>${monto_lider:,.2f}</b>, superando a <b>{segunda.capitalize()}</b> por <b>${diff:,.2f}</b>. Esto indica una clara preferencia del mercado por esta categoría.</p>
+                <p>La categoría líder en ventas es <b>{lider.capitalize()}</b> con <b>${int(monto_lider):,}</b>, superando a <b>{segunda.capitalize()}</b> por <b>${diff:,}</b>. Esto indica una clara preferencia del mercado por esta categoría.</p>
                 </div>
                 """, unsafe_allow_html=True)
             elif len(ventas_categoria) == 1:
