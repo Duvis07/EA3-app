@@ -1,4 +1,9 @@
 import streamlit as st
+st.set_page_config(
+    page_title="Análisis de Ventas - TechNova Retail",
+    page_icon="📊",
+    layout="wide"
+)
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -7,12 +12,6 @@ try:
     from caso_estudio import mostrar_caso_estudio
 except ImportError:
     mostrar_caso_estudio = None
-
-st.set_page_config(
-    page_title="Análisis de Ventas - TechNova Retail",
-    page_icon="📊",
-    layout="wide"
-)
 
 # --- CSS para diseño moderno tipo "app de turismo" ---
 st.markdown("""
@@ -51,7 +50,16 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# Título principal primero
 st.title("📊 Análisis de Ventas - TechNova Retail")
+
+# Banner de autores y descripción después del título
+st.markdown("""
+<div style='background-color: #f9f9fc; border-radius: 8px; box-shadow: 0 2px 8px rgba(76, 110, 245, 0.05); padding: 20px 26px 14px 26px; margin-bottom: 24px;'>
+    <p style='margin:0; font-size: 20px; font-weight: bold; color: #1a365d;'>Desarrollado por: <span style='color:#2563eb;'>Duván, Daniel y Angelo</span></p>
+    <span style='font-size:15px; color:#222;'>Esta aplicación interactiva analiza los patrones de ventas en TechNova Retail para identificar tendencias clave que pueden mejorar las ofertas y estrategias de marketing de la empresa. Utiliza los filtros a continuación para personalizar el análisis según tus necesidades específicas.</span>
+</div>
+""", unsafe_allow_html=True)
 
 # --- Tabs para caso de estudio y visualizaciones ---
 tabs = st.tabs(["Caso de estudio", "Visualizaciones de ventas"])
