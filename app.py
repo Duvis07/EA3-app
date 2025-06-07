@@ -65,6 +65,7 @@ with tabs[0]:
         </div>
         """, unsafe_allow_html=True)
         mostrar_caso_estudio()
+        # Solo texto y conclusiones, nunca gráficos ni insights de ventas
     else:
         st.subheader("Caso de estudio no disponible")
         st.write("No se encontró el módulo 'caso_estudio.py'.")
@@ -121,6 +122,33 @@ with tabs[1]:
         return df
 
     df = load_data()
+
+    st.markdown(f"""
+    <div style="
+        max-width: 240px;
+        margin: 22px auto 18px auto;
+        background: linear-gradient(90deg, #e0e7ff 0%, #f8fafc 100%);
+        box-shadow: 0 3px 12px rgba(76, 110, 245, 0.10), 0 0.5px 2px rgba(44, 82, 130, 0.07);
+        border-radius: 13px;
+        padding: 13px 16px 12px 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-left: 5px solid #4a86e8;
+        border-right: 1.5px solid #e2e8f0;
+    ">
+        <div style="font-size: 27px; color: #4a86e8; margin-bottom: 3px; font-weight: 900; letter-spacing: -1px;">📈</div>
+        <div style="font-size: 22px; font-weight: 900; color: #1a365d; letter-spacing: -0.5px; line-height: 1;">
+            {len(df):,}
+        </div>
+        <div style="font-size: 13px; color: #2c5282; margin-top: 1px; font-weight: 600; letter-spacing: 0.2px;">
+            registros analizados
+        </div>
+        <div style="font-size:11px; color:#4a5568; margin-top: 2px; text-align:center;">
+            <span style='font-style:italic;'>Filas procesadas</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
     with col1:
@@ -244,12 +272,16 @@ with tabs[1]:
             fig3.tight_layout()
             ax3.legend()
             st.pyplot(fig3)
-            st.markdown("""
+            # Formatear fechas solo como mes y año
+            fecha_inicio = pd.to_datetime(ventas_tiempo.index[0]).strftime('%B %Y')
+            fecha_fin = pd.to_datetime(ventas_tiempo.index[-1]).strftime('%B %Y')
+            porcentaje = (ventas_tiempo.values[-1] - ventas_tiempo.values[0]) / ventas_tiempo.values[0] * 100
+            st.markdown(f"""
             <div class='insight-card'>
             <h3>Insight: Evolución de Ventas</h3>
-            <p>Las ventas han aumentado un {:.2f}% desde {} hasta {}.</p>
+            <p>Las ventas han aumentado un {porcentaje:.2f}% desde <b>{fecha_inicio}</b> hasta <b>{fecha_fin}</b>.</p>
             </div>
-            """.format((ventas_tiempo.values[-1] - ventas_tiempo.values[0]) / ventas_tiempo.values[0] * 100, ventas_tiempo.index[0], ventas_tiempo.index[-1]), unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
         else:
             st.warning("No se encontraron las columnas 'fecha' y 'ventas' en el archivo.")
 
@@ -299,4 +331,79 @@ with tabs[1]:
             <p>{interpretacion}</p>
             </div>
             """, unsafe_allow_html=True)
+
+    # Mostrar la gráfica de tendencia de edad promedio solo en la pestaña de visualizaciones
+    st.markdown("<hr style='margin:40px 0 20px 0;border: none; border-top: 2px solid #4a86e8;background: none;' />", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align:center;'>Tendencia de Edad Promedio de los Clientes</h3>", unsafe_allow_html=True)
+
+    # Validación de columnas necesarias
+    if 'fecha' in df.columns and 'edad_cliente' in df.columns:
+        
+        # Centrar gráfico
+        c1, c2, c3 = st.columns([1, 2, 1])
+        with c2:
+            # Preprocesamiento
+            df_fecha_edad = df.copy()
+            df_fecha_edad['fecha'] = pd.to_datetime(df_fecha_edad['fecha'])
+            df_fecha_edad['año_mes'] = df_fecha_edad['fecha'].dt.to_period('M')
+
+            # Agrupación por mes y cálculo de edad promedio
+            edad_media = df_fecha_edad.groupby('año_mes')['edad_cliente'].mean()
+
+            # Visualización
+            fig_edad, ax_edad = plt.subplots(figsize=(9, 4))
+            sns.set_style("whitegrid")
+
+            # Línea de edad promedio
+            ax_edad.plot(
+                edad_media.index.astype(str), 
+                edad_media.values, 
+                marker='o', 
+                color="#4a86e8", 
+                linewidth=2.5, 
+                label="Edad promedio"
+            )
+
+            # Línea de tendencia
+            x = np.arange(len(edad_media))
+            z = np.polyfit(x, edad_media.values, 1)
+            p = np.poly1d(z)
+            ax_edad.plot(
+                edad_media.index.astype(str), 
+                p(x), 
+                color="#2c5282", 
+                linestyle="--", 
+                linewidth=2, 
+                label="Tendencia"
+            )
+
+            # Etiquetas y estilo
+            ax_edad.set_xlabel("Mes", fontsize=13, fontweight="bold")
+            ax_edad.set_ylabel("Edad Promedio", fontsize=13, fontweight="bold")
+            ax_edad.grid(True, linestyle='--', alpha=0.2)
+            ax_edad.legend()
+            fig_edad.tight_layout()
+            st.pyplot(fig_edad)
+
+            # Insight
+            cambio = edad_media.values[-1] - edad_media.values[0]
+            sentido = "aumentado" if cambio > 0 else "disminuido"
+
+            # Formato más legible de fechas (ej. Octubre 2023)
+            fecha_inicio = edad_media.index[0].to_timestamp().strftime("%B %Y")
+            fecha_fin = edad_media.index[-1].to_timestamp().strftime("%B %Y")
+
+            st.markdown(f"""
+            <div class='insight-card' style='margin:auto;max-width:600px; padding: 15px 20px; background-color: #f9f9f9; border-left: 5px solid #4a86e8; border-radius: 8px;'>
+                <h3 style='text-align:center; color:#1a365d;'>Insight: Tendencia de Edad</h3>
+                <p style='text-align:center; font-size:16px;'>
+                    La edad promedio de los clientes ha <b>{sentido}</b> {abs(cambio):.1f} años desde <b>{fecha_inicio}</b> hasta <b>{fecha_fin}</b>.<br>
+                    Esto puede reflejar cambios en el perfil demográfico de los compradores.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+
+    else:
+        st.warning("No se encontraron las columnas 'fecha' y 'edad_cliente' en el archivo para graficar la tendencia de edad.")
+
 

@@ -234,17 +234,6 @@ def mostrar_caso_estudio():
     st.write("""
     Para crear dashboards que combinen múltiples métricas y permitan una exploración interactiva profunda, Plotly es ideal. Su capacidad para manejar grandes volúmenes de datos y crear interfaces interactivas lo hace perfecto para dashboards comerciales y reportes ejecutivos.
     """)
-    
-    st.subheader("Conclusión")
-    st.write("""
-    La combinación de estas librerías de visualización nos permite abordar de manera integral el análisis de ventas minoristas. Cada librería aporta sus fortalezas específicas:
-
-    - Matplotlib proporciona control preciso para visualizar tendencias de ventas en el tiempo.
-    - Seaborn facilita la comparación estadística entre categorías, productos y clientes con visualizaciones elegantes.
-    - Plotly ofrece interactividad para explorar correlaciones y patrones complejos, además de permitir crear dashboards interactivos para un análisis comercial integral.
-
-    Esta aproximación multi-librería nos permite aprovechar lo mejor de cada herramienta para obtener insights más completos y valiosos sobre el comportamiento de ventas, preferencias de los clientes y oportunidades de mejora para TechNova Retail.
-    """)
 
     # Conclusión
     st.markdown("<h2 style='font-size: 32px; color: #1a365d;'>Conclusión</h2>", unsafe_allow_html=True)
@@ -257,3 +246,16 @@ def mostrar_caso_estudio():
     
     Esta aproximación multi-librería nos permite aprovechar lo mejor de cada herramienta para obtener insights más completos y valiosos sobre el comportamiento de ventas, preferencias de los clientes y oportunidades de mejora para TechNova Retail.
     """)
+
+    # Referencias bibliográficas
+    st.markdown("""
+    <h2 style='font-size: 28px; color: #1a365d; margin-top:32px;'>Referencias bibliográficas</h2>
+    <ul style='font-size:18px;'>
+        <li><b>Hunter, J. D. (2007).</b> Matplotlib: A 2D Graphics Environment. <i>Computing in Science & Engineering</i>, 9(3), 90-95. <a href='https://matplotlib.org/' target='_blank'>https://matplotlib.org/</a></li>
+        <li><b>Waskom, M. L. (2021).</b> Seaborn: Statistical Data Visualization. <i>Journal of Open Source Software</i>, 6(60), 3021. <a href='https://seaborn.pydata.org/' target='_blank'>https://seaborn.pydata.org/</a></li>
+        <li><b>Plotly Technologies Inc. (2015).</b> Collaborative data science. <a href='https://plotly.com/python/' target='_blank'>https://plotly.com/python/</a></li>
+        <li><b>Bokeh Development Team. (2018).</b> Bokeh: Python library for interactive visualization. <a href='https://bokeh.org/' target='_blank'>https://bokeh.org/</a></li>
+        <li><b>Jordahl, K., et al. (2020).</b> GeoPandas: Python tools for geographic data. <a href='https://geopandas.org/' target='_blank'>https://geopandas.org/</a></li>
+        <li><b>McKinney, W. (2010).</b> Data Structures for Statistical Computing in Python. <i>Proceedings of the 9th Python in Science Conference</i>, 51-56. <a href='https://pandas.pydata.org/' target='_blank'>https://pandas.pydata.org/</a></li>
+    </ul>
+    """, unsafe_allow_html=True)
