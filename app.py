@@ -10,8 +10,10 @@ import seaborn as sns
 
 try:
     from caso_estudio import mostrar_caso_estudio
+    from analisis_estrategico import mostrar_analisis_estrategico
 except ImportError:
     mostrar_caso_estudio = None
+    mostrar_analisis_estrategico = None
 
 # --- CSS para diseño moderno tipo "app de turismo" ---
 st.markdown("""
@@ -61,14 +63,14 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# --- Tabs para caso de estudio y visualizaciones ---
-tabs = st.tabs(["Caso de estudio", "Visualizaciones de ventas"])
+# --- Tabs para caso de estudio, visualizaciones y análisis estratégico ---
+tabs = st.tabs(["Caso de estudio", "Visualizaciones de ventas", "Análisis Estratégico"])
 
 with tabs[0]:
     if mostrar_caso_estudio:
         st.markdown("""
         <div class='insight-card'>
-        <h2>Caso de Estudio</h2>
+        <h2>Análisis de Datos para la Optimización de Estrategia Comercial</h2>
         <p>Explora el caso de estudio y descubre cómo se puede aplicar el análisis de ventas en un escenario real.</p>
         </div>
         """, unsafe_allow_html=True)
@@ -413,5 +415,18 @@ with tabs[1]:
 
     else:
         st.warning("No se encontraron las columnas 'fecha' y 'edad_cliente' en el archivo para graficar la tendencia de edad.")
+
+with tabs[2]:
+    if mostrar_analisis_estrategico:
+        st.markdown("""
+        <div class='insight-card'>
+        <h2>Análisis Estratégico</h2>
+        <p>Visualizaciones avanzadas para el análisis estratégico de ventas y comportamiento del cliente.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        mostrar_analisis_estrategico()
+    else:
+        st.subheader("Análisis estratégico no disponible")
+        st.write("No se encontró el módulo 'analisis_estrategico.py'.")
 
 
