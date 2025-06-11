@@ -1146,18 +1146,32 @@ def mostrar_analisis_estrategico():
         total_ventas_ciudades = ventas_ciudad['ventas'].sum()
         concentracion_top3 = (top3_ciudades['ventas'].sum() / total_ventas_ciudades) * 100
         
+        # Crear cadenas de texto formateadas para las top 3 ciudades
+        ciudad1 = f"{top3_ciudades.iloc[0]['ciudad'].title()} ({top3_ciudades.iloc[0]['pais']}): ${top3_ciudades.iloc[0]['ventas']:,.2f}"
+        ciudad2 = f"{top3_ciudades.iloc[1]['ciudad'].title()} ({top3_ciudades.iloc[1]['pais']}): ${top3_ciudades.iloc[1]['ventas']:,.2f}"
+        ciudad3 = f"{top3_ciudades.iloc[2]['ciudad'].title()} ({top3_ciudades.iloc[2]['pais']}): ${top3_ciudades.iloc[2]['ventas']:,.2f}"
+        
         st.markdown(f"""
         <div class='insight-card'>
         <h3>Insight: Análisis Geoespacial Detallado</h3>
         <p>La ciudad con mayor volumen de ventas es <b>{ciudad_mas_ventas['ciudad'].title()}</b> en <b>{ciudad_mas_ventas['pais']}</b> 
         con <b>${ciudad_mas_ventas['ventas']:,.2f}</b>.</p>
-        <p>Las top 3 ciudades representan el <b>{concentracion_top3:.1f}%</b> del total de ventas, {
+        
+        <p><b>Top 3 ciudades por ventas:</b></p>
+        <ol style="margin-top: 0; padding-left: 20px;">
+            <li><b>{ciudad1}</b></li>
+            <li><b>{ciudad2}</b></li>
+            <li><b>{ciudad3}</b></li>
+        </ol>
+        
+        <p>Estas ciudades representan el <b>{concentracion_top3:.1f}%</b> del total de ventas, {
         'indicando una alta concentración geográfica' if concentracion_top3 > 50 else 'mostrando una distribución relativamente equilibrada'} 
         del negocio.</p>
-        <p>Recomendación: {
-        'Diversificar la presencia en más ciudades para reducir la dependencia geográfica' if concentracion_top3 > 50 
+        
+        <p><b>Recomendación:</b> {
+        'Diversificar la presencia en más ciudades para reducir la dependencia geográfica y minimizar riesgos regionales. Considerar expandir a ciudades secundarias con perfiles demográficos similares a las actuales líderes.' if concentracion_top3 > 50 
         else 'Mantener la estrategia actual de distribución geográfica mientras se fortalecen los mercados clave'
-        }.</p>
+        }</p>
         </div>
         """, unsafe_allow_html=True)
     else:
