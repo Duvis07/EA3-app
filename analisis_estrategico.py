@@ -1014,6 +1014,21 @@ def mostrar_analisis_estrategico():
     
     st.plotly_chart(fig_mapa, use_container_width=True)
     
+    # Insight para el mapa coroplético de países
+    pais_mas_ventas = metricas_pais.loc[metricas_pais['ventas'].idxmax()]
+    pais_mayor_ticket = metricas_pais.loc[metricas_pais['ticket_promedio'].idxmax()]
+    
+    st.markdown(f"""
+    <div class='insight-card'>
+    <h3>Insight: Distribución Geográfica de Ventas</h3>
+    <p>El país con mayor volumen de ventas es <b>{pais_mas_ventas['pais']}</b> con <b>${pais_mas_ventas['ventas']:,.2f}</b> 
+    en ventas totales. Sin embargo, <b>{pais_mayor_ticket['pais']}</b> destaca con el mayor ticket promedio 
+    de <b>${pais_mayor_ticket['ticket_promedio']:,.2f}</b> por cliente.</p>
+    <p>Esta información sugiere oportunidades de expansión en mercados de alto valor y estrategias diferenciadas por país 
+    considerando el poder adquisitivo y comportamiento de compra local.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
     # 6. Mapa de Burbujas mejorado: Combinar con análisis
     ventas_ciudad = df_filtrado.groupby(['pais', 'ciudad']).agg({
         'ventas': 'sum',
@@ -1121,6 +1136,32 @@ def mostrar_analisis_estrategico():
     )
     
     st.plotly_chart(fig_geo_completo, use_container_width=True)
+    
+    # Insight para el mapa combinado de países y ciudades
+    if not ventas_ciudad.empty:
+        ciudad_mas_ventas = ventas_ciudad.loc[ventas_ciudad['ventas'].idxmax()]
+        
+        # Calcular concentración de ventas (% que representan las top 3 ciudades)
+        top3_ciudades = ventas_ciudad.nlargest(3, 'ventas')
+        total_ventas_ciudades = ventas_ciudad['ventas'].sum()
+        concentracion_top3 = (top3_ciudades['ventas'].sum() / total_ventas_ciudades) * 100
+        
+        st.markdown(f"""
+        <div class='insight-card'>
+        <h3>Insight: Análisis Geoespacial Detallado</h3>
+        <p>La ciudad con mayor volumen de ventas es <b>{ciudad_mas_ventas['ciudad'].title()}</b> en <b>{ciudad_mas_ventas['pais']}</b> 
+        con <b>${ciudad_mas_ventas['ventas']:,.2f}</b>.</p>
+        <p>Las top 3 ciudades representan el <b>{concentracion_top3:.1f}%</b> del total de ventas, {
+        'indicando una alta concentración geográfica' if concentracion_top3 > 50 else 'mostrando una distribución relativamente equilibrada'} 
+        del negocio.</p>
+        <p>Recomendación: {
+        'Diversificar la presencia en más ciudades para reducir la dependencia geográfica' if concentracion_top3 > 50 
+        else 'Mantener la estrategia actual de distribución geográfica mientras se fortalecen los mercados clave'
+        }.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.info("No hay datos suficientes de ciudades para generar insights geoespaciales detallados.")
 
     # 7. Segmentación de mercado mejorada: Visualización interactiva
     st.markdown("<h3 style='text-align:center; color:#1a365d; margin-bottom:20px; margin-top:40px; font-weight:800;'>Segmentación de Mercado</h3>", unsafe_allow_html=True)
